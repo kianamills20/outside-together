@@ -1,48 +1,25 @@
-Outside Together
+# 🌿 Outside Together
 
-Stay Active. Meet People.
+## 🚲 Stay Active. Meet People.
 
-Outside Together is a full-stack web application that helps users discover and organize outdoor activities with others. Users can create meetups, browse events by category, and join activities that match their interests. The goal is to make it easier for people to stay active and connect through shared outdoor interests.
-
-Project Concept
-
-Outside Together allows users to:
-
-Create an account and log in
-Post local sports or outdoor activity meetups
-Browse events by category
-Join events
-View events they created
-View events they joined
-Save/favorite events
-
-Example Activities
-Saturday morning hike at Red Rocks
-Beginner longboarding meetup
-Pickup volleyball at Wash Park
-Dog-friendly group trail walk
-
-This keeps the app personal, social, and professionally relevant.
-
-30 Second Elevator Pitch
+# 📝 30 Second Elevator Pitch
 
 Outside Together is a social activity-planning web app that helps users discover and join local sports and outdoor meetups like hiking trips, pickup games, and longboarding sessions. Users can create events, browse activities by category, and join events that match their interests. The MVP focuses on authentication, relational data, and user dashboards to solve a real-world problem: helping people find active communities and connect through shared interests.
 
-Why I Built This
+## 🌸 Why I Built This
 
 I chose this project because it’s something I could realistically see people using. It connects to my interests in sports, hiking, and outdoor activities, while also demonstrating important full-stack skills like:
 
-User authentication
-Database relationships
-Protected routes
-Interactive frontend features
-RESTful API design
+* User authentication
+* Database relationships
+* Protected routes
+* Interactive frontend features
+* RESTful API design  
 
-I wanted to build a project that felt like a real product instead of just a basic tracker app.
 
-🎨 Wireframes
+# Core MVP Features
 
-The following wireframes outline the core layout and user flow of OutsideTogether. These wireframes focus on structure and functionality rather than final styling. Visual design, spacing, and UI details will be refined during development.
+The following wireframes outline the core layout and user flow of Outside Together. These wireframes focus on structure and functionality rather than final styling. Visual design, spacing, and UI details will be refined during development.
 
 🏠 Home / Discover Page
 
