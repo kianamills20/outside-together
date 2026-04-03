@@ -6,10 +6,10 @@ await db.end();
 console.log("database seeded");
 
 async function seed() {
-  const SQL = "INSERT INTO greetings (message) VALUES ($1) RETURNING *";
+  const SQL = "INSERT INTO users (username) VALUES ($1) RETURNING *";
 
   const {
-    rows: [message],
+    rows: [username],
   } = await db.query(SQL, ["Hello World"]);
-  console.log(message);
+  console.log(username);
 }

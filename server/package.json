@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "db:schema": "psql -d greetings -f db/schema.sql",
-    "db:seed": "node db/seed.js"
+    "db:schema": "psql -d outside_together -f db/schema.sql",
+    "db:seed": "node --env-file=.env db/seed.js"
 
   },
   "dependencies": {
