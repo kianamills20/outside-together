@@ -83,8 +83,8 @@ These improve usability and polish.
 erDiagram
     USERS {
         UUID id PK
-        TEXT username
-        TEXT password
+        TEXT username UNIQUE 
+        TEXT password 
         TEXT role
         TIMESTAMP created_at
     }
@@ -96,11 +96,11 @@ erDiagram
 
     EVENTS {
         UUID id PK
-        TEXT title
-        TEXT description
-        TEXT location
-        TIMESTAMP date
-        UUID creator_id FK
+        TEXT title NOT NULL
+        TEXT description NOT NULL
+        TEXT location NOT NULL
+        TIMESTAMP date NOT NULL
+        UUID creator_id  FK
         UUID category_id FK
         TIMESTAMP create_at
     }
