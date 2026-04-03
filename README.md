@@ -157,6 +157,14 @@ erDiagram
 
 ## 🧩 Wireframes
 
+```
+/wireframes/
+  ├── home.png
+  ├── dashboard.png
+  ├── create-event.png
+  └── event-details.png
+```
+
 ### 🏡 Home / Discover 
 * Navbar
 * Category filter
@@ -165,13 +173,10 @@ erDiagram
 * Join button 
 * Login button
 
-### 📍 Event Details
-* Title
-* Description
-* Location 
-* Date
-* Attendees
-* Join / Leave button
+### 👤 Dashboard
+* My Created Events
+* Joined Events
+* Edit/Delete buttons
 
 ### ➕ Create Event 
 * Title input
@@ -181,10 +186,13 @@ erDiagram
 * Date picker
 * Submit button
 
-### 👤 Dashboard
-* My Created Events
-* Joined Events
-* Edit/Delete buttons
+### 📍 Event Details
+* Title
+* Description
+* Location 
+* Date
+* Attendees
+* Join / Leave button
 
 ### 🔐 Login / Register
 * Username
@@ -192,6 +200,28 @@ erDiagram
 * Submit button
 
 ---
+
+## 🪛 Installation & Setup
+
+```bash
+# Clone the repo 
+git clone https://github.com/your-username/your-repo-name.git
+
+# Navigate into project 
+cd your-repo-name
+
+# Install backend dependencies
+cd server && npm install
+
+# Install frontend dependencies 
+cd ../client && npm install
+
+# Run development servers
+npm run dev
+```
+
+---
+
 
 ## ⚙️ Tech Stack
 
