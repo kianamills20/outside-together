@@ -1,323 +1,232 @@
 # 🌿 Outside Together
 
-## 🚲 Stay Active. Meet People.
+### 🚲 Stay Active. Meet People.
 
-# 📝 30 Second Elevator Pitch
+## 📝 30 Second Elevator Pitch
 
-Outside Together is a social activity-planning web app that helps users discover and join local sports and outdoor meetups like hiking trips, pickup games, and longboarding sessions. Users can create events, browse activities by category, and join events that match their interests. The MVP focuses on authentication, relational data, and user dashboards to solve a real-world problem: helping people find active communities and connect through shared interests.
+Outside Together is a social activity web app that helps users discover, create, and join outdoor events like hiking trips, pickup games, and longboarding meetups. Built using the PERN stack (PostgreSQL, Express, React, Node.js), the app connects people through shared interests while making it easy to organize events, track attendees, and manage activity details -- perfect for anyone looking to stay active and meet new people.
 
-## 🌸 Why I Built This
+---
 
-I chose this project because it’s something I could realistically see people using. It connects to my interests in sports, hiking, and outdoor activities, while also demonstrating important full-stack skills like:
+## Core MVP Features
 
-* User authentication
-* Database relationships
+These features define the minimum functional version of Outside Together.
+
+### 👤 User Authenication
+* Register new users
+* Login/logout with JWT
+* Basic profile (username)
 * Protected routes
-* Interactive frontend features
-* RESTful API design  
 
-
-# Core MVP Features
-
-The following wireframes outline the core layout and user flow of Outside Together. These wireframes focus on structure and functionality rather than final styling. Visual design, spacing, and UI details will be refined during development.
-
-🏠 Home / Discover Page
-
-Purpose: Allow users to browse and filter outdoor activities
-
-Planned Layout:
-
-Navigation bar
-Category filter (Hiking, Sports, Longboarding, etc.)
-Search bar
-Event cards grid
-
-Each event card includes:
-
-Title
-Category
-Location
-Date
-Join button
-
-User Actions:
-
-Browse events
-Filter by category
-Click event for details
-📍 Event Details Page
-
-Purpose: Show full event information and allow users to join
-
-Planned Layout:
-
-Event title
-Event description
-Category tag
-Location
-Date & time
-Creator name
-Join / Leave button
-Attendees list
-
-User Actions:
-
-Join event
-Leave event
-View attendees
-➕ Create Event Page
-
-Purpose: Allow users to create new outdoor meetups
-
-Planned Layout:
-
-Title input
-Description textarea
-Category dropdown
-Location input
-Date picker
-Submit button
-
-User Actions:
-
-Create new event
-Cancel event creation
-👤 User Dashboard
-
-Purpose: Show user-specific activity
-
-Planned Layout:
-
-Welcome header
-My Created Events section
-Joined Events section
-Saved Events section
-Edit/Delete buttons for owned events
-
-User Actions:
-
-View created events
-Manage owned events
-View joined events
-Navigate to event details
-🔐 Login Page
-
-Purpose: Authenticate users
-
-Planned Layout:
-
-Username input
-Password input
-Login button
-Link to register
-📝 Register Page
-
-Purpose: Create new account
-
-Planned Layout:
-
-Username input
-Password input
-Confirm password
-Register button
-🛠️ Admin Dashboard (Optional MVP / Stretch)
-
-Purpose: Allow admin moderation
-
-Planned Layout:
-
-Users list
-Events list
-Delete event button
-Delete user button
-Manage categories section
-🔄 Navigation Flow
-
-Home
-→ Event Details
-→ Join Event
-
-Home
-→ Create Event
-→ Dashboard
-
-Dashboard
-→ Event Details
-→ Edit Event
-
-Login
-→ Home
-
-🧠 Wireframe Notes
-Layout prioritizes quick event discovery
-Dashboard focuses on user-specific data
-Event creation designed for minimal friction
-Navigation kept simple for MVP scope
-Mobile responsiveness considered for future iteration
-
-Core MVP Features
-User registration and login
-Create, edit, and delete an event
-Browse all upcoming events
-Filter events by category
-Join or leave an event
-View user dashboard
-Save / favorite events
-
-Stretch Goals
-Event comments
-Profile avatars
-Map/location integration
-Skill level tags (beginner/intermediate/advanced)
-Weather display for outdoor events
-Messaging between attendees
-Tech Features Demonstrated
-
-This project demonstrates:
-
-User authentication and protected routes
-One-to-many relationships
-Many-to-many relationships
-Full CRUD operations
-Role-based authorization
-Filtering and dynamic rendering
-RESTful API design
-Full-stack architecture (React + Express + PostgreSQL)
-Database Schema (MVP)
-
-Tables
-
-users
-id (PK)
-username
-password
-role (user | admin)
-categories
-id (PK)
-name
-
-events
-id (PK)
-title
-description
-location
-date
-creator_id (FK → users)
-category_id (FK → categories)
-
-event_attendees
-user_id (FK → users)
-event_id (FK → events)
-
-Relationships
-One user creates many events
-One category has many events
-Many users join many events
-event_attendees handles many-to-many relationship
-
-User Roles
-User Permissions
-
-Users can:
-
-Register and login
-Create events
-Edit their own events
-Delete their own events
-Join events
-Leave events
-View dashboard
-Save events
-Admin Permissions
-
-Admins can:
-
-View all users
-Delete inappropriate events
-Manage activity categories
-Moderate platform content
-
-User = manages their own content
-Admin = manages the entire platform
-
-Pages / UI Structure
-Home / Discover
-Browse events
-Filter by category
-Search activities
-Event Details
-Event info
-Join button
-Attendees list
-Create Event
-Title
-Description
-Category
-Location
-Date
-Dashboard
-Events created by user
-Events joined
-Saved events
-Login / Register
-Authentication pages
-Example API Routes
-Auth
-
-POST /api/auth/register
-POST /api/auth/login
-
-Events
-
-GET /api/events
-GET /api/events/:id
-POST /api/events
-PUT /api/events/:id
-DELETE /api/events/:id
-
-Attendees
-
-POST /api/events/:id/join
-DELETE /api/events/:id/leave
-
-Categories
-
-GET /api/categories
-
-Admin
-
-DELETE /api/admin/events/:id
-GET /api/admin/users
-
-Built With
-
-Frontend:
-
-React
-Vite
-
-Backend:
-
-Node.js
-Express
-
-Database:
-
-PostgreSQL
-pg
-
-Other:
-
-JWT Authentication
-REST API
-
-Future Improvements:
-Google Maps integration
-Real-time chat
-Event notifications
-Mobile responsive UI
-Location-based recommendations
-Author
+### 🏕️ Event Creation
+Users can create events with:
+* Title
+* Description
+* Category
+* Location
+* Date & time
+* Creator
+
+### 🔎 Browse & Discover Events
+* View all upcoming events
+* Filter by category
+* Search events
+* View event details
+
+### 🤝 Join / Leave Events
+* Join an event
+* Leave an event
+* View attendee list
+* Prevent duplication joins
+
+### 📊 User Dashboard
+Users can: 
+* View created events
+* View joined events
+* Manage their events
+* Navigate to event details
+
+
+## 🌟 Stretch Goal Features
+These improve usability and polish.
+
+### 🧠 Smart Discovery
+* Filter by skill level
+* Tag-based search 
+* Popular events section
+
+### 📱 UI Improvements
+* Mobile responsive layout
+* Modern dashboard UI
+* Toast notifications
+
+### 🗺️ Location Features 
+* Map integration 
+* Location-based search
+* Distance filtering
+
+### 👥 Social Features
+* Save/favorite events
+* Event comments
+* User avatars
+
+### 🛠️ Admin Controls
+* Delete events
+* Manage users
+* Moderate catergories
+
+---
+
+## 🗃️ Database Design (MVP)
+
+```mermaid
+erDiagram
+    USERS {
+        UUID id PK
+        TEXT username
+        TEXT password
+        TEXT role
+        TIMESTAMP created_at
+    }
+
+    CATEGORIES {
+        UUID id PK
+        TEXT name
+    }
+
+    EVENTS {
+        UUID id PK
+        TEXT title
+        TEXT description
+        TEXT location
+        TIMESTAMP date
+        UUID creator_id FK
+        UUID category_id FK
+        TIMESTAMP create_at
+    }
+
+    EVENT_ATTENDEES {
+        UUID id PK
+        UUID user_id FK
+        UUID event_id FK
+        TIMESTAMP joined_at
+    }
+
+    USERS ||--o{ EVENTS : creator_id
+    CATEGORIES ||--o{ EVENTS : category_id
+    USERS ||--o{ EVENT_ATTENDEES : user_id
+    EVENTS ||--o{ EVENT_ATTENDEES : event_id
+```
+---
+
+## 🔌 Possible API Endpoints
+
+### Auth
+* `POST /api/auth/register` - Register a new user
+* `POST /api/auth/login` - Authenticate user
+
+### Users
+* `GET /api/users/:id` - Get user profile
+* `GET /api/users` - Get all users
+
+### Events
+* `POST /api/events` - Create a new event
+* `GET /api/events` - Get all upcoming events
+* `GET /api/events/:id` - Get single event details 
+* `PUT /api/events/:id` - Update an event (creator only)
+* `DELETE /api/events/:id` - Delete an event (creator/admin only)
+
+### Event Attendees
+* `POST /api/events/:id/join` - Join an event
+* `DELETE /api/events/:id/leave` - Leave an event
+* `GET /api/events/:id/attendees` - Get all attendees for an event
+
+### Categories
+* `GET /api/categories` - Get all event categories
+* `GET /api/categories/:id/events` - Get events by category
+
+### Dashboard
+* `GET /api/dashboard` - Get current user's dashboard data (GET created events + joined events)
+
+### Admin (Stretch)
+* `GET /api/admin/users` - Get all users
+* `DELETE /api/admin/events/:id` - Delete any event
+* `DELETE /api/admin/users/:id` - Delete any user
+
+---
+
+## 🧩 Wireframes
+
+### 🏡 Home / Discover 
+* Navbar
+* Category filter
+* Search bar
+* Event cards grid
+* Join button 
+* Login button
+
+### 📍 Event Details
+* Title
+* Description
+* Location 
+* Date
+* Attendees
+* Join / Leave button
+
+### ➕ Create Event 
+* Title input
+* Description
+* Category dropdown
+* Location
+* Date picker
+* Submit button
+
+### 👤 Dashboard
+* My Created Events
+* Joined Events
+* Edit/Delete buttons
+
+### 🔐 Login / Register
+* Username
+* Password
+* Submit button
+
+---
+
+## ⚙️ Tech Stack
+
+### Frontend
+* React
+* Vite
+
+### Backend
+* Node.js
+* Express
+
+### Database
+* PostgreSQL 
+* pg
+
+### Other
+* JWT Authentication
+* REST API
+* Protected routes
+
+---
+
+## 🔮 Future Improvements
+
+* Real-time chat between attendees
+* Notifications for joined events
+* Google Maps integration
+* Weather preview for outdoor events
+* Group event planning
+* Mobile app version
+
+
+---
+
+## 👩‍💻 Author
 
 Built by Kiana Mills
-Full Stack Developer (Bootcamp Capstone Project)
+Full Stack Developer - Capstone Project 🌸
