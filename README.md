@@ -229,4 +229,7 @@ erDiagram
 ## 👩‍💻 Author
 
 Built by Kiana Mills
+<br>
+GitHub: [https://github.com/kianamills20](https://github.com/kianamills20)
+<br>
 Full Stack Developer - Capstone Project 🌸
