@@ -1,0 +1,23 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "Outside Together is a social activity web app that helps users discover, create, and join outdoor events like hiking trips, pickup games, and longboarding meetups. Built using the PERN stack (PostgreSQL, Express, React, Node.js), the app connects people through shared interests while making it easy to organize events, track attendees, and manage activity details -- perfect for anyone looking to stay active and meet new people.",
+  "homepage": "https://github.com/kianamills20/outside-together#readme",
+  "bugs": {
+    "url": "https://github.com/kianamills20/outside-together/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kianamills20/outside-together.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vite": "^8.0.5"
+  }
+}
