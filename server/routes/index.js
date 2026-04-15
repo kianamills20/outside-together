@@ -1,9 +1,8 @@
 import express from "express";
-import cors from "cors";
+import usersRouter from "./users.js"
 
-const app = express();
+const router = express.Router();
 
-app.use(express.json());
-app.use(cors());
+router.use("/users", usersRouter);
 
-app.get("/register", register);
+export default router;
