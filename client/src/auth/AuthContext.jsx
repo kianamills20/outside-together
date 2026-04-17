@@ -5,11 +5,12 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }){
+    const[user, setUser] = useState();
     const[token, setToken] = useState();
 
 
 
-const register = async (credentials) {
+const register = async (credentials) => {
     const response = await fetch(API_BASE + "/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -19,7 +20,7 @@ const register = async (credentials) {
     if (!response.ok) {
         throw Error(result.error || "Something went wrong");
     }
-   setToken(result.token);
+   return result;
 };
 
 const login = async (credentials) => {
@@ -30,13 +31,19 @@ const login = async (credentials) => {
     });
     const result = await response.json();
     if (!response.ok) {
-        throw Error(result.error);
+        throw Error(result.error || "Something went wrong");
     }
+    setUser(result.user);
     setToken(result.token);
-}
-const logout = () => setToken(null);
 
-const value = { token, register, login, logout };
+    return result;
+}
+const logout = () => {
+    setUser(null);
+    setToken(null);
+}
+
+const value = { user, token, register, login, logout };
 return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 
 }
