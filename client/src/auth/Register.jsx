@@ -9,7 +9,6 @@ function Register() {
   const [error, setError] = useState(null);
 
   const tryRegister = async (formData) => {
-    console.log("SUBMIT FIRED");
     setError(null);
 
     const first_name = formData.get("first_name");
@@ -18,7 +17,6 @@ function Register() {
     const password = formData.get("password");
     try {
       const result = await register({ first_name, last_name, username, password });
-      console.log("REGISTER SUCCESS:", result);
       navigate("/");
     } catch (error) {
       setError(error.message);
