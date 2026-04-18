@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useState } from "react";
 
-
 function Login() {
-  const { login, token } = useAuth();
+  const { login, isAuthenticated, isAuthLoading } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -15,14 +14,20 @@ function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const result = await login({ username, password });
+      await login({ username, password });
       navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
 
-  if (token) {
+  if (isAuthLoading) {
+    // WHY (Functionality): Waiting for Context hydration avoids rendering a
+    // login form for users who already have a valid saved session.
+    return <p>Checking your session...</p>;
+  }
+
+  if (isAuthenticated) {
     return (
       <section>
         <h1>You're already logged in</h1>
