@@ -2,9 +2,11 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
-import Home from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
+import PublicPage from "./pages/PublicPage";
+import Error404 from "./pages/NotFound";
 
 function App() {
   return (
