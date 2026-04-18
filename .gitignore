@@ -1,0 +1,62 @@
+# WHY (Functionality): Keeping installed dependencies out of Git avoids huge commits
+# and prevents machine-specific package state from breaking teammates' setup.
+# Dependencies
+node_modules/
+
+# WHY (Functionality): Build artifacts are generated files, so tracking them causes
+# unnecessary merge conflicts and can hide real source changes during review.
+# Build output
+dist/
+build/
+
+# WHY (Code Style): Ignoring logs keeps the repository focused on source code,
+# which improves readability and makes code review cleaner.
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# WHY (Functionality + Documentation): Local env files often contain secrets or
+# machine-specific values; keeping examples tracked documents required keys safely.
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# WHY (Code Style): Test coverage output is generated data and not source; ignoring
+# it reduces repository noise so reviewers can focus on implementation quality.
+# Test and coverage output
+coverage/
+.nyc_output/
+
+# WHY (Functionality): Runtime PID files are temporary process metadata and can
+# break local runs if stale values are accidentally committed.
+# Runtime data
+*.pid
+*.pid.lock
+
+# WHY (Code Style): Cache/temp files change often and are not authored code,
+# so ignoring them keeps diffs small and maintainable.
+# Cache and temp files
+.cache/
+.tmp/
+tmp/
+
+# WHY (Documentation): Editor/OS files are personal machine metadata; excluding
+# them keeps project history consistent for all contributors.
+# Editor/system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# WHY (Functionality): Local database files are environment-specific state;
+# ignoring them prevents accidental data leaks and inconsistent app behavior.
+# Optional local databases
+*.sqlite
+*.sqlite3
+*.db
