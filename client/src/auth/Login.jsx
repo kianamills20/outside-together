@@ -16,7 +16,7 @@ function Login() {
     const password = formData.get("password");
     try {
       const result = await login({ username, password });
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }
@@ -26,7 +26,7 @@ function Login() {
     return (
       <section>
         <h1>You're already logged in</h1>
-        <button onClick={() => navigate("/")}>Go to Home</button>
+        <button onClick={() => navigate("/dashboard")}>Go to Home</button>
       </section>
     );
   }

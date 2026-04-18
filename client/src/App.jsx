@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<PublicPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>
