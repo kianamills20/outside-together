@@ -12,9 +12,10 @@ function App() {
       <NavBar />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<PublicPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );

@@ -18,7 +18,7 @@ const register = async (credentials) => {
     });
     const result = await response.json();
     if (!response.ok) {
-        throw Error(result.error || "Something went wrong");
+        throw Error(result?.error || "Something went wrong");
     }
    return result;
 };
@@ -31,7 +31,7 @@ const login = async (credentials) => {
     });
     const result = await response.json();
     if (!response.ok) {
-        throw Error(result.error || "Something went wrong");
+        throw Error(result?.error || "Something went wrong");
     }
     setUser(result.user);
     setToken(result.token);
