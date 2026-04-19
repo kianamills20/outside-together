@@ -20,7 +20,7 @@ export default function Account() {
   return (
     <>
       <h1>
-        {user.first_name} {user.last_name}
+        {user?.first_name} {user?.last_name}
       </h1>
       <p>Account settings</p>
     </>
