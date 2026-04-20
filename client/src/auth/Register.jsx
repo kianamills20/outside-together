@@ -3,38 +3,47 @@ import { useAuth } from "./AuthContext";
 import { useState } from "react";
 
 function Register() {
-  const { register } = useAuth();
+  const { register, isAuthenticated, isAuthLoading } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
 
   const tryRegister = async (formData) => {
+    // WHY (Functionality): Keep submitted fields aligned with backend contract
+    // so registration is predictable and easier to debug for beginners.
     setError(null);
 
-    const first_name = formData.get("first_name");
-    const last_name = formData.get("last_name");
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const result = await register({ first_name, last_name, username, password });
+      await register({ username, password });
       navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
 
+  if (isAuthLoading) {
+    // WHY (Functionality): A loading state prevents users from seeing the
+    // register form briefly while an existing session is being restored.
+    return <p>Checking your session...</p>;
+  }
+
+  if (isAuthenticated) {
+    // WHY (Documentation): This message clarifies that registration is only for
+    // signed-out users, which reduces confusion in auth-related UI flows.
+    return (
+      <section>
+        <h1>You are already logged in</h1>
+        <button onClick={() => navigate("/")}>Go to Home</button>
+      </section>
+    );
+  }
+
   return (
     <>
-    <h1>Register for an account</h1>
+      <h1>Register for an account</h1>
       <form action={tryRegister}>
-        <div>
-          <label>First Name</label>
-          <input type="text" name="first_name" required />
-        </div>
-        <div>
-          <label>Last Name</label>
-          <input type="text" name="last_name" required />
-        </div>
         <div>
           <label>Email</label>
           <input type="text" name="username" required />

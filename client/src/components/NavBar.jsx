@@ -1,3 +1,37 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+
+function NavBar() {
+  const { user, isAuthenticated, isAuthLoading, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  if (isAuthLoading) {
+    return <nav>Loading auth...</nav>;
+  }
+
+  return (
+    <nav>
+      <Link to="/">Home</Link>
+      {isAuthenticated ? (
+        <>
+          <span>Welcome, {user.username}</span>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <Link to="/register">Register</Link>
+          <Link to="/login">Login</Link>
+        </>
+      )}
+    </nav>
+  );
+}
+export default NavBar;
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 

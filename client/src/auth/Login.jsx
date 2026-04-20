@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useState } from "react";
 
-
 function Login() {
-  const { login, token } = useAuth();
+  const { login, isAuthenticated, isAuthLoading } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -15,6 +14,8 @@ function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
+      await login({ username, password });
+      navigate("/");
       const result = await login({ username, password });
       navigate("/dashboard");
     } catch (error) {
@@ -22,7 +23,12 @@ function Login() {
     }
   };
 
-  if (token) {
+  if (isAuthLoading) {
+   
+    return <p>Checking your session...</p>;
+  }
+
+  if (isAuthenticated) {
     return (
       <section>
         <h1>You're already logged in</h1>

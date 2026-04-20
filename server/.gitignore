@@ -1,0 +1,47 @@
+# WHY (Functionality): Ignoring dependencies prevents committing machine-specific
+# install state and keeps backend setup reproducible across environments.
+# Dependencies
+node_modules/
+
+# WHY (Code Style): Server logs are runtime output, not source, so excluding them
+# keeps commits readable and aligned with review expectations.
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# WHY (Functionality + Documentation): Local env files may contain secrets and
+# per-machine values, while example files document required configuration keys.
+# Env files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# WHY (Code Style): Coverage artifacts are generated files that can distract from
+# actual implementation changes during rubric-based review.
+# Test output
+coverage/
+.nyc_output/
+
+# WHY (Functionality): PID files are temporary process markers and can interfere
+# with local runs if stale files are accidentally tracked.
+# Runtime data
+*.pid
+*.pid.lock
+
+# WHY (Functionality): Local DB files hold environment-specific state and may
+# include sensitive test data, so they should remain untracked.
+# Optional local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# WHY (Code Style): Cache and temp files are disposable artifacts; ignoring them
+# reduces noise and improves maintainability.
+# Cache/temp
+.cache/
+.tmp/
+tmp/

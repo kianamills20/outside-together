@@ -1,3 +1,5 @@
+# WHY (Code Style): Logs are generated during local runs and not part of app logic,
+# so ignoring them keeps PRs focused on meaningful source changes.
 # Logs
 logs
 *.log
@@ -7,11 +9,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# WHY (Functionality): Dependencies and build outputs are reproducible artifacts;
+# excluding them prevents large commits and environment-specific regressions.
 node_modules
 dist
 dist-ssr
 *.local
 
+# WHY (Functionality + Documentation): Ignore local env values to protect secrets,
+# but keep example files tracked so setup requirements stay documented.
+# Env files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# WHY (Code Style): Coverage is generated analysis output and should not clutter
+# version history meant for human-authored code.
+# Test output
+coverage
+
+# WHY (Code Style): Tool caches and temp files are ephemeral and frequently change,
+# so ignoring them improves maintainability and review signal.
+# Cache/temp
+.vite
+.cache
+.tmp
+tmp
+
+# WHY (Documentation): Editor and OS metadata varies by developer machine;
+# excluding it keeps the repository consistent for beginner collaborators.
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
