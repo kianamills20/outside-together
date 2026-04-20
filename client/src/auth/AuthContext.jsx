@@ -6,8 +6,7 @@ const AUTH_TOKEN_KEY = "outside_together_token";
 const AuthContext = createContext();
 
 function saveToken(token) {
-  // WHY (Functionality): Keeping the token in localStorage lets auth survive
-  // page refreshes, which supports a reliable end-to-end login experience.
+
   if (token) {
     localStorage.setItem(AUTH_TOKEN_KEY, token);
     return;
@@ -22,8 +21,7 @@ export function AuthProvider({ children }) {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   useEffect(() => {
-    // WHY (Functionality): Hydrating user state from an existing token prevents
-    // accidental logouts on refresh and keeps Context as the single auth source.
+    
     const storedToken = localStorage.getItem(AUTH_TOKEN_KEY);
 
     if (!storedToken) {
@@ -69,16 +67,14 @@ export function AuthProvider({ children }) {
   }, []);
 
   function setAuthSession(nextToken, nextUser) {
-    // WHY (Code Style + Documentation): Centralizing session updates avoids
-    // repeated auth state code and makes login/register behavior consistent.
+
     setToken(nextToken);
     setUser(nextUser);
     saveToken(nextToken);
   }
 
   const register = async (credentials) => {
-    // WHY (Functionality): Register now updates Context immediately so users are
-    // authenticated right after signup, matching backend response behavior.
+
     const response = await fetch(API_BASE + "/api/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -89,12 +85,22 @@ export function AuthProvider({ children }) {
       throw Error(result.error || "Something went wrong");
     }
     setAuthSession(result.token, result.user);
+import { useState, createContext, useContext } from "react";
+import { registerUser, loginUser } from "../api/auth";
+
+const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
+  const register = async (credentials) => {
+    const result = await registerUser(credentials);
     return result;
   };
 
   const login = async (credentials) => {
-    // WHY (Functionality): Login writes both user and token into Context so all
-    // components render from one shared auth state.
+ 
     const response = await fetch(API_BASE + "/api/users/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -106,12 +112,14 @@ export function AuthProvider({ children }) {
     }
     setAuthSession(result.token, result.user);
 
+    const result = await loginUser(credentials);
+    setToken(result.token);
+    setUser(result.user);
     return result;
   };
 
   const logout = () => {
-    // WHY (Functionality): Clearing Context + localStorage ensures logout is
-    // immediate and reliable across tabs and page refreshes.
+ 
     setUser(null);
     setToken(null);
     saveToken(null);
@@ -129,9 +137,14 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// WHY (Code Style): This file intentionally exports both provider and hook so
-// beginners can find auth logic in one place while the app remains maintainable.
-// eslint-disable-next-line react-refresh/only-export-components
+    setUser(null);
+    setToken(null);
+  };
+
+  const value = { user, token, register, login, logout };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) throw Error("useAuth must be used within AuthProvider");

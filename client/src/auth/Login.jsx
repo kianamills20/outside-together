@@ -16,14 +16,15 @@ function Login() {
     try {
       await login({ username, password });
       navigate("/");
+      const result = await login({ username, password });
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }
   };
 
   if (isAuthLoading) {
-    // WHY (Functionality): Waiting for Context hydration avoids rendering a
-    // login form for users who already have a valid saved session.
+   
     return <p>Checking your session...</p>;
   }
 
@@ -31,7 +32,7 @@ function Login() {
     return (
       <section>
         <h1>You're already logged in</h1>
-        <button onClick={() => navigate("/")}>Go to Home</button>
+        <button onClick={() => navigate("/dashboard")}>Go to Home</button>
       </section>
     );
   }
