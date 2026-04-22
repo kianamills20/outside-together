@@ -1,19 +1,17 @@
 import db from "../client.js";
 import bcrypt from "bcrypt";
 
-export async function createUser(username, password, role) {
-  // WHY (Functionality + Documentation): Return only non-sensitive fields so
-  // registration responses cannot leak password hashes and are easier to trust.
+export async function createUser(first_name, last_name, username, password, role) {
   const SQL = `
     INSERT INTO users
-    (username, password, role)
-    VALUES ($1, $2, $3)
-    RETURNING id, username, role, created_at
+    (first_name, last_name, username, password, role)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
     `;
   const hashedPassword = await bcrypt.hash(password, 12);
   const {
     rows: [user],
-  } = await db.query(SQL, [username, hashedPassword, role]);
+  } = await db.query(SQL, [first_name, last_name, username, hashedPassword, role]);
   return user;
 }
 
