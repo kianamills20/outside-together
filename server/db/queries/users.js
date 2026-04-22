@@ -6,7 +6,7 @@ export async function createUser(first_name, last_name, username, password, role
     INSERT INTO users
     (first_name, last_name, username, password, role)
     VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
+    RETURNING first_name, last_name, username, role, id, created_at
     `;
   const hashedPassword = await bcrypt.hash(password, 12);
   const {
@@ -33,10 +33,8 @@ export async function getUserByUsernameAndPassword(username, password) {
 }
 
 export async function getUserById(id) {
-  // WHY (Functionality): Token-authenticated requests should load a current
-  // user record from the database, and this helper keeps that query centralized.
   const SQL = `
-    SELECT id, username, role, created_at
+    SELECT id, first_name, last_name, username, role, created_at
     FROM users
     WHERE id = $1
     `;
