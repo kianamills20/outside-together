@@ -1,4 +1,5 @@
 import db from "./client.js";
+import { createCategory } from "./queries/categories.js";
 
 await db.connect();
 await seed();
@@ -20,4 +21,9 @@ async function seed() {
     "Walking",
     "Kite Flying"
   ]
+
+  for (const name of categories) {
+    await createCategory(name);
+  }
+
 }

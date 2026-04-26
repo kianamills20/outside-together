@@ -1,9 +1,20 @@
 import { useAuth } from "../auth/AuthContext";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCategories } from "../api";
 
 export default function Dashboard() {
-
   const { user, token } = useAuth();
+  const [categories, setCategories] = useState([]);
+
+  async function loadCategories() {
+    const data = await getCategories();
+    setCategories(data);
+  }
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   if (!token) {
     return (
@@ -22,6 +33,9 @@ export default function Dashboard() {
     <>
       <h1>Hi, {user?.first_name}</h1>
       <p>Welcome back</p>
+      <div>
+        <CategoryFilter categories={categories} />
+      </div>
     </>
   );
 }
