@@ -6,10 +6,18 @@ await db.end();
 console.log("🌱 Database seeded.");
 
 async function seed() {
-  const SQL = "INSERT INTO users (username) VALUES ($1) RETURNING *";
-
-  const {
-    rows: [username],
-  } = await db.query(SQL, ["Hello World"]);
-  console.log(username);
+  const categories = [
+    "Hiking",
+    "Running",
+    "Paddleboarding",
+    "Soccer",
+    "Pickleball",
+    "Tennis",
+    "Camping",
+    "Volleyball",
+    "Golfing",
+    "Skateboarding",
+    "Walking",
+    "Kite Flying"
+  ]
 }
