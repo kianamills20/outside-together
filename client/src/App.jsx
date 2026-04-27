@@ -8,7 +8,8 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import PublicPage from "./pages/PublicPage";
 import Error404 from "./pages/NotFound";
-import SingleEventPage from "./components/SingleEventPage";
+import SingleEventPage from "./pages/SingleEventPage";
+import CreateEventPage from "./pages/CreateEventPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/account" element={<Account />} />
         <Route path="/events/:id" element={<SingleEventPage />} />
+        <Route path="/events/new" element={<CreateEventPage />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

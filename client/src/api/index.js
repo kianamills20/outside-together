@@ -21,7 +21,7 @@ export async function getEvents(){
 
 export async function getEvent(id){
   try{
-    const response = await fetch(`${API_BASE}/api/events/` + id);
+    const response = await fetch(`${API_BASE}/api/events`);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -29,3 +29,23 @@ export async function getEvent(id){
     return null;
   }
 }
+
+export async function createEvent(eventData, token){
+  if (!token) {
+    throw Error("You must be signed in to create an event.");
+  }
+  const response = await fetch(`${API_BASE}/api/events`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(eventData),
+  });
+
+  if (!response.ok) {
+    throw Error("Something went wrong while creating event.");
+  }
+   const result = await response.json();
+  return result;
+};
