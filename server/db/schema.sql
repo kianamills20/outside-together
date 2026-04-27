@@ -28,7 +28,8 @@ CREATE TABLE events(
    creator_id INT NOT NULL,
    category_id INT NOT NULL,
    location text NOT NULL,
-   date timestamp NOT NULL,
+   image_url text,
+   event_date timestamp NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
    created_at timestamp DEFAULT NOW()

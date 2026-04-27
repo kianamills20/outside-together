@@ -21,7 +21,7 @@ function NavBar() {
         <>
           <NavLink to ="/dashboard">Dashboard</NavLink>
           <NavLink to="/account">Account</NavLink>
-          <span>Welcome, {user.username}</span>
+          <span>{user.first_name}'s Dashboard</span>
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
