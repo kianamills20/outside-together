@@ -1,6 +1,7 @@
 import { changePassword } from "../api";
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Account() {
   const { user, token } = useAuth();

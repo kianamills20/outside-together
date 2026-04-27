@@ -15,8 +15,6 @@ function Login() {
     const password = formData.get("password");
     try {
       await login({ username, password });
-      navigate("/");
-      const result = await login({ username, password });
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -24,9 +22,11 @@ function Login() {
   };
 
   if (isAuthLoading) {
-    <main className="page">
-      return <p>Checking your session...</p>
-    </main>;
+    return (
+      <main className="page">
+        <p>Checking your session...</p>
+      </main>
+    );
   }
 
   if (isAuthenticated) {
