@@ -115,14 +115,24 @@ export default function Dashboard() {
             <EventList events={joinedEvents} onLeave={handleLeave} />
           </section>
           <section className="section">
-          <CategoryFilter
-            categories={categories}
-            selectedCategoryId={selectedCategoryId}
-            onSelectCategory={setSelectedCategoryId}
-          />
-          <Link className="btn" to="/events/new">Create Event</Link>
-          <EventList events={filteredEvents} onJoin={handleJoin} />
-        </section>
+            <div className="section-header">
+              <div>
+                <h2 className="section-title">Explore all events</h2>
+                <p className="section-copy">
+                  Filter by activity, then jump into something nearby.
+                </p>
+              </div>
+            </div>
+            <div className="dashboard-actions">
+              <CategoryFilter
+                categories={categories}
+                selectedCategoryId={selectedCategoryId}
+                onSelectCategory={setSelectedCategoryId}
+              />
+              <Link className="btn create-event-btn" to="/events/new">Create Event</Link>
+            </div>
+            <EventList events={filteredEvents} onJoin={handleJoin} />
+          </section>
         </div>
       </main>
     </>

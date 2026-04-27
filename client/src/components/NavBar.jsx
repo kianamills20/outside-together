@@ -11,25 +11,27 @@ function NavBar() {
   };
 
   if (isAuthLoading) {
-    return <nav>Loading auth...</nav>;
+    return <nav className="top-nav">Loading auth...</nav>;
   }
 
   return (
-    <nav>
-      <NavLink to="/">Outside Together</NavLink>
-      {isAuthenticated ? (
-        <>
-          <NavLink to ="/dashboard">Dashboard</NavLink>
-          <NavLink to="/account">Account</NavLink>
-          <span>{user.first_name}'s Dashboard</span>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <NavLink to="/register">Register</NavLink>
-          <NavLink to="/login">Login</NavLink>
-        </>
-      )}
+    <nav className="top-nav">
+      <NavLink className="brand-mark" to="/">Outside Together</NavLink>
+      <div className="nav-links">
+        {isAuthenticated ? (
+          <>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/account">Account</NavLink>
+            <span className="nav-status">{user.first_name}&apos;s Dashboard</span>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <NavLink to="/register">Register</NavLink>
+            <NavLink to="/login">Login</NavLink>
+          </>
+        )}
+      </div>
     </nav>
   );
 }

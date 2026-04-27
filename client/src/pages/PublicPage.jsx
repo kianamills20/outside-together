@@ -33,16 +33,33 @@ export default function PublicPage() {
   }
 
   return (
-    <>
-      <h1>Landing Page</h1>
-      <div>
+    <main className="page">
+      <section className="hero">
+        <div className="hero-copy">
+          <p className="eyebrow">Find your next outdoor plan</p>
+          <h1>Fresh air, good people, and local events that feel easy to join.</h1>
+          <p className="hero-text">
+            Browse hikes, rides, games, and meetups in one place. Filter by
+            vibe and find something that fits your day.
+          </p>
+        </div>
+      </section>
+      <section className="section">
+        <div className="section-header">
+          <div>
+            <h2 className="section-title">Upcoming events</h2>
+            <p className="section-copy">
+              Explore what&apos;s happening nearby and narrow it down by activity.
+            </p>
+          </div>
+        </div>
         <CategoryFilter
           categories={categories}
           selectedCategoryId={selectedCategoryId}
           onSelectCategory={setSelectedCategoryId}
         />
         <EventList events={filteredEvents} />
-      </div>
-    </>
+      </section>
+    </main>
   );
 }

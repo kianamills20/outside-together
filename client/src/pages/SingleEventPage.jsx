@@ -5,11 +5,14 @@ import { getEvent } from "../api";
 export default function SingleEventPage() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const fallbackImage = "/default-event.svg";
+  const [imageSrc, setImageSrc] = useState(fallbackImage);
 
   useEffect(() => {
     async function loadEvent() {
       const data = await getEvent(id);
       setEvent(data);
+      setImageSrc(data.image_url || fallbackImage);
     }
     loadEvent();
   }, [id]);
@@ -23,7 +26,11 @@ export default function SingleEventPage() {
       <main className="page">
         <div className="single-event">
         <div>
-          <img src={event.image_url} alt={event.title} />
+          <img
+            src={imageSrc}
+            alt={event.title}
+            onError={() => setImageSrc(fallbackImage)}
+          />
         </div>
 
         <div>

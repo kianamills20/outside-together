@@ -1,0 +1,138 @@
+.top-nav {
+  width: min(1160px, calc(100% - 2rem));
+  margin: 1rem auto 0;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-radius: 24px;
+  background: rgba(245, 250, 243, 0.92);
+  border: 1px solid rgba(119, 154, 120, 0.2);
+  box-shadow: 0 14px 40px rgba(45, 74, 54, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.brand-mark {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #224733;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a,
+.nav-status {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  color: #355846;
+}
+
+.nav-links a {
+  background: rgba(210, 228, 213, 0.45);
+}
+
+.nav-links a.active {
+  background: #2f5d46;
+  color: #fff;
+}
+
+.nav-status {
+  padding-right: 0.15rem;
+  border-radius: 0;
+  background: transparent;
+  color: #2b4d39;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(198, 233, 184, 0.9), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(144, 204, 162, 0.75), transparent 30%),
+    linear-gradient(135deg, #eff8eb 0%, #dcefd9 48%, #eef7f0 100%);
+  border: 1px solid rgba(104, 144, 105, 0.18);
+  box-shadow: 0 20px 50px rgba(43, 72, 49, 0.08);
+}
+
+.hero-copy {
+  max-width: 640px;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #2f6b48;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.05;
+  color: #163120;
+}
+
+.hero-text,
+.section-copy {
+  margin: 0;
+  max-width: 56ch;
+  line-height: 1.6;
+  color: #486253;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.event-card-link {
+  display: block;
+}
+
+.event-meta {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #3f7a56;
+}
+
+.event-date {
+  font-weight: 600;
+  color: #28523c;
+}
+
+@media (max-width: 700px) {
+  .top-nav {
+    width: calc(100% - 1rem);
+    margin-top: 0.5rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .hero {
+    padding: 1.5rem;
+    border-radius: 22px;
+  }
+
+  .section-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
