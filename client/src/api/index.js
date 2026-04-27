@@ -3,9 +3,18 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export async function getCategories(){
       const response = await fetch(`${API_BASE}/api/categories`);
-      const data = await response.json();
+      const result = await response.json();
       if (!response.ok) {
         throw Error(result.error || "Something went wrong")
       }
-      return data;
+      return result;
+}
+
+export async function getEvents(){
+  const response = await fetch(`${API_BASE}/api/events`);
+  const result = await response.json();
+  if (!response.ok) {
+    throw Error(result.error || "Something went wrong")
+  }
+  return result;
 }

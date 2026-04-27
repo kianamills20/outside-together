@@ -25,3 +25,15 @@ export async function getEvents(){
     } = await db.query(SQL);
     return events;
 }
+
+export async function getEventById(id){
+    const SQL = `
+    SELECT *
+    FROM events
+    WHERE id = $1
+    `;
+    const {
+        rows: [event]
+    } = await db.query(SQL, [id]);
+    return event;
+}
