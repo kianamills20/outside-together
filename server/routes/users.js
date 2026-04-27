@@ -6,6 +6,7 @@ import {
 import requireBody from "../middleware/requireBody.js";
 import requireUser from "../middleware/requireUser.js";
 import { createToken } from "../utils/jwt.js";
+import { getJoinedEvents } from "../db/queries/event_attendees.js";
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.post(
 );
 router.post("/login", requireBody(["username", "password"]), login);
 router.get("/me", requireUser, me);
+router.get("/me/joined-events", requireUser, joinedEvents);
 
 function toPublicUser(user) {
   return {
@@ -72,6 +74,15 @@ async function login(req, res) {
 
 function me(req, res) {
   res.status(200).json({ user: req.user });
+}
+
+async function joinedEvents(req, res, next) {
+  try{
+    const events = await getJoinedEvents(req.user.id);
+    res.status(200).json(events);
+  } catch (error) {
+    next(error);
+  }
 }
 
 export default router;

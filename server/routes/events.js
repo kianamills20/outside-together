@@ -80,7 +80,9 @@ router.post("/:id/join", requireUser, async (req, res, next) => {
     const joinedEvent = await joinEvent(req.user.id, eventId);
     res.status(201).send(joinedEvent);
   } catch (err) {
-    next(err);
+    if (err.code === "23505") {
+      return res.status(409).send("You already joined this event.")
+    }
   }
 });
 
