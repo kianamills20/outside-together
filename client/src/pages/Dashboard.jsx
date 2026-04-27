@@ -5,10 +5,10 @@ import { getCategories, getEvents } from "../api";
 import CategoryFilter from "../components/CategoryList";
 import EventList from "../components/EventList";
 
-
 export default function Dashboard() {
   const { user, token } = useAuth();
   const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [events, setEvents] = useState([]);
 
   async function loadCategories() {
@@ -16,7 +16,7 @@ export default function Dashboard() {
     setCategories(data);
   }
 
-  async function loadEvents(){
+  async function loadEvents() {
     const data = await getEvents();
     setEvents(data);
   }
@@ -25,6 +25,16 @@ export default function Dashboard() {
     loadCategories();
     loadEvents();
   }, []);
+
+  let filteredEvents;
+
+  if (selectedCategoryId === null) {
+    filteredEvents = events;
+  } else {
+    filteredEvents = events.filter((event) => {
+      return event.category_id === selectedCategoryId;
+    });
+  }
 
   if (!token) {
     return (
@@ -44,8 +54,12 @@ export default function Dashboard() {
       <h1>Hi, {user?.first_name}</h1>
       <p>Welcome back</p>
       <div>
-        <CategoryFilter categories={categories} />
-        <EventList events={events} />
+        <CategoryFilter
+          categories={categories}
+          selectedCategoryId={selectedCategoryId}
+          onSelectCategory={setSelectedCategoryId}
+        />
+        <EventList events={filteredEvents} />
       </div>
     </>
   );

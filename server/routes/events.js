@@ -3,6 +3,7 @@ import requireUser from "../middleware/requireUser.js";
 import requireBody from "../middleware/requireBody.js";
 import { getEvents, getEventById, createEvent } from "../db/queries/events.js";
 
+
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {

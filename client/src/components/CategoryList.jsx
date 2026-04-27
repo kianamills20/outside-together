@@ -1,7 +1,4 @@
-export default function CategoryFilter({
-  categories,
-  onSelectCategory,
-}) {
+export default function CategoryFilter({ categories, onSelectCategory }) {
   return (
     <div>
       <button onClick={() => onSelectCategory(null)}>All</button>
