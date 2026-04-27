@@ -77,3 +77,18 @@ export async function getJoinedEvents(token) {
   }
   return result;
 }
+
+export async function leaveJoinedEvent(eventId, token) {
+  const response = await fetch(`${API_BASE}/api/events/${eventId}/leave`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.error || "Could not leave event");
+  }
+  return result;
+}

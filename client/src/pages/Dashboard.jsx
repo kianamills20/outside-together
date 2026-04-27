@@ -1,7 +1,7 @@
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCategories, getEvents, getJoinedEvents, joinEvent } from "../api";
+import { getCategories, getEvents, getJoinedEvents, joinEvent, leaveJoinedEvent } from "../api";
 import CategoryFilter from "../components/CategoryList";
 import EventList from "../components/EventList";
 
@@ -47,6 +47,15 @@ export default function Dashboard() {
     }
   }
 
+  async function handleLeave(eventId) {
+    try{
+      await leaveJoinedEvent(eventId, token);
+      await loadJoinedEvents();
+    } catch(err){
+      console.error(err);
+    }
+  }
+
   let filteredEvents;
 
   if (selectedCategoryId === null) {
@@ -77,7 +86,7 @@ export default function Dashboard() {
       <div>
         <section>
           <h2>My Joined Events</h2>
-          <EventList events={joinedEvents} />
+          <EventList events={joinedEvents} onLeave={handleLeave} />
         </section>
         <CategoryFilter
           categories={categories}

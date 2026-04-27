@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ event, onJoin }) {
-  console.log("onJoin is:", onJoin);
+export default function EventCard({ event, onJoin, onLeave }) {
   return (
     <>
       <Link to={"/events/" + event.id}>
@@ -17,6 +16,9 @@ export default function EventCard({ event, onJoin }) {
       </Link>
       {typeof onJoin === "function" && (
         <button onClick={() => onJoin(event.id)}>Join Event</button>
+      )}
+      {typeof onLeave === "function" && (
+        <button onClick={() => onLeave(event.id)}>Leave Event</button>
       )}
     </>
   );
