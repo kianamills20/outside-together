@@ -109,6 +109,12 @@ export default function Dashboard() {
           <section className="section">
             <h2 className="section-title">My Created Events</h2>
             <EventList events={createdEvents} onDelete={handleDelete} />
+            <Link
+              className="btn-secondary"
+              to={"/events/" + event.id + "/edit"}
+            >
+              Edit Event
+            </Link>
           </section>
           <section className="section">
             <h2 className="section-title">My Joined Events</h2>
@@ -129,7 +135,9 @@ export default function Dashboard() {
                 selectedCategoryId={selectedCategoryId}
                 onSelectCategory={setSelectedCategoryId}
               />
-              <Link className="btn create-event-btn" to="/events/new">Create Event</Link>
+              <Link className="btn create-event-btn" to="/events/new">
+                Create Event
+              </Link>
             </div>
             <EventList events={filteredEvents} onJoin={handleJoin} />
           </section>

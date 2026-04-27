@@ -10,6 +10,7 @@ import PublicPage from "./pages/PublicPage";
 import Error404 from "./pages/NotFound";
 import SingleEventPage from "./pages/SingleEventPage";
 import CreateEventPage from "./pages/CreateEventPage";
+import EditEventPage from "./pages/EditEventPage";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/events/new" element={<CreateEventPage />} />
         <Route path="/events/:id" element={<SingleEventPage />} />
+        <Route path="/events/:id/edit" element={<EditEventPage />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>
