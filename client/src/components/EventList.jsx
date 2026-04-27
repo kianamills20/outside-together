@@ -2,7 +2,7 @@ import EventCard from "./EventCard";
 
 export default function EventList({ events, onJoin, onLeave, onDelete }) {
   return (
-    <div>
+    <div className="card-grid">
       {events.map((event) => {
         return (
           <EventCard

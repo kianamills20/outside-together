@@ -1,7 +1,14 @@
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { deleteEvent, getCategories, getEvents, getJoinedEvents, joinEvent, leaveJoinedEvent } from "../api";
+import {
+  deleteEvent,
+  getCategories,
+  getEvents,
+  getJoinedEvents,
+  joinEvent,
+  leaveJoinedEvent,
+} from "../api";
 import CategoryFilter from "../components/CategoryList";
 import EventList from "../components/EventList";
 
@@ -30,11 +37,10 @@ export default function Dashboard() {
   useEffect(() => {
     loadCategories();
     loadEvents();
-    
+
     if (token) {
       loadJoinedEvents();
     }
-    
   }, [token]);
 
   async function handleJoin(eventId) {
@@ -48,16 +54,16 @@ export default function Dashboard() {
   }
 
   async function handleLeave(eventId) {
-    try{
+    try {
       await leaveJoinedEvent(eventId, token);
       await loadJoinedEvents();
-    } catch(err){
+    } catch (err) {
       console.error(err);
     }
   }
 
   async function handleDelete(eventId) {
-    try{
+    try {
       await deleteEvent(eventId, token);
       await loadEvents();
     } catch (err) {
@@ -94,25 +100,31 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Hi, {user?.first_name}</h1>
-      <p>Welcome back</p>
-      <div>
-        <section>
-          <h2>My Created Events</h2>
-          <EventList events={createdEvents} onDelete={handleDelete} />
+      <main className="page">
+        <div className="dashboard-header">
+          <h1>Hi, {user?.first_name}</h1>
+          <p>Welcome back</p>
+        </div>
+        <div>
+          <section className="section">
+            <h2 className="section-title">My Created Events</h2>
+            <EventList events={createdEvents} onDelete={handleDelete} />
+          </section>
+          <section className="section">
+            <h2 className="section-title">My Joined Events</h2>
+            <EventList events={joinedEvents} onLeave={handleLeave} />
+          </section>
+          <section className="section">
+          <CategoryFilter
+            categories={categories}
+            selectedCategoryId={selectedCategoryId}
+            onSelectCategory={setSelectedCategoryId}
+          />
+          <Link className="btn" to="/events/new">Create Event</Link>
+          <EventList events={filteredEvents} onJoin={handleJoin} />
         </section>
-        <section>
-          <h2>My Joined Events</h2>
-          <EventList events={joinedEvents} onLeave={handleLeave} />
-        </section>
-        <CategoryFilter
-          categories={categories}
-          selectedCategoryId={selectedCategoryId}
-          onSelectCategory={setSelectedCategoryId}
-        />
-        <Link to="/events/new">Create Event</Link>
-        <EventList events={filteredEvents} onJoin={handleJoin} />
-      </div>
+        </div>
+      </main>
     </>
   );
 }

@@ -50,9 +50,10 @@ export default function CreateEventPage() {
 
   return (
     <>
+    <main className="page">
       <h1>Create Event</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           name="title"
           placeholder="Event title"
@@ -98,6 +99,7 @@ export default function CreateEventPage() {
         />
         <button>Create Event</button>
       </form>
+      </main>
     </>
   );
 }
