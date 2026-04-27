@@ -59,7 +59,17 @@ export async function joinEvent(eventId, token) {
   const result = await response.json();
 
   if (!response.ok) {
-    throw Error(result.error || "Could not join event");
+    throw Error(result.error || "Could not join event.");
+  }
+  return result;
+}
+
+export async function getEventAttendees(eventId){
+  const response = await fetch(`${API_BASE}/api/events/${eventId}/attendees`);
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.error || "Could not get attendees.");
   }
   return result;
 }
