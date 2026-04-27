@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, UNSAFE_SingleFetchRedirectSymbol } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Dashboard from "./pages/Dashboard";
@@ -23,8 +23,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/events/:id" element={<SingleEventPage />} />
         <Route path="/events/new" element={<CreateEventPage />} />
+        <Route path="/events/:id" element={<SingleEventPage />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>

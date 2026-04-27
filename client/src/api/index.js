@@ -21,7 +21,7 @@ export async function getEvents(){
 
 export async function getEvent(id){
   try{
-    const response = await fetch(`${API_BASE}/api/events`);
+    const response = await fetch(`${API_BASE}/api/events/${id}`);
     const result = await response.json();
     return result;
   } catch (error) {

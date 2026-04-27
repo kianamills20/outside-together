@@ -59,6 +59,7 @@ export default function Dashboard() {
           selectedCategoryId={selectedCategoryId}
           onSelectCategory={setSelectedCategoryId}
         />
+        <Link to="/events/new">Create Event</Link>
         <EventList events={filteredEvents} />
       </div>
     </>
