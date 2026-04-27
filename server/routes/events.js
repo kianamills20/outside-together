@@ -2,7 +2,7 @@ import express from "express";
 import requireUser from "../middleware/requireUser.js";
 import requireBody from "../middleware/requireBody.js";
 import { getEvents, getEventById, createEvent } from "../db/queries/events.js";
-import { joinEvent } from "../db/queries/event_attendees.js";
+import { joinEvent, leaveJoinedEvent } from "../db/queries/event_attendees.js";
 
 const router = express.Router();
 
@@ -81,8 +81,22 @@ router.post("/:id/join", requireUser, async (req, res, next) => {
     res.status(201).send(joinedEvent);
   } catch (err) {
     if (err.code === "23505") {
-      return res.status(409).send("You already joined this event.")
+      return res.status(409).send("You already joined this event.");
     }
+  }
+});
+
+router.delete("/:id/leave", requireUser, async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    if (isNaN(eventId)) {
+      return res.status(400).send("Event id must be a number.");
+    }
+    const leftEvent = await leaveJoinedEvent(req.user.id, eventId);
+    res.status(200).send(leftEvent);
+  } catch (err) {
+    next(err);
   }
 });
 

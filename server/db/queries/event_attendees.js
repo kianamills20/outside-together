@@ -25,3 +25,15 @@ ORDER BY events.event_date;
   const { rows: events } = await db.query(SQL, [userId]);
   return events;
 }
+
+export async function leaveJoinedEvent(userId, eventId){
+    const SQL = `
+    DELETE FROM event_attendees
+    WHERE user_id = $1 AND event_id = $2
+    RETURNING *
+    `;
+    const {
+        rows: [leftEvent],
+    } = await db.query(SQL, [userId, eventId]);
+    return leftEvent;
+}
