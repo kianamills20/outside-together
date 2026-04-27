@@ -49,3 +49,31 @@ export async function createEvent(eventData, token){
    const result = await response.json();
   return result;
 };
+
+export async function joinEvent(eventId, token) {
+  const response = await fetch(`${API_BASE}/api/events/${eventId}/join`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.error || "Could not join event");
+  }
+  return result;
+}
+
+export async function getJoinedEvents(token) {
+  const response = await fetch(`${API_BASE}/api/users/me/joined-events`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw Error(result.error || "Something went wrong")
+  }
+  return result;
+}

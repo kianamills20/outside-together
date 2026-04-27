@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, onJoin }) {
+  console.log("onJoin is:", onJoin);
   return (
     <>
       <Link to={"/events/" + event.id}>
@@ -14,6 +15,9 @@ export default function EventCard({ event }) {
           <p>{event.event_date}</p>
         </div>
       </Link>
+      {typeof onJoin === "function" && (
+        <button onClick={() => onJoin(event.id)}>Join Event</button>
+      )}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCategories, getEvents } from "../api";
+import { getCategories, getEvents, getJoinedEvents, joinEvent } from "../api";
 import CategoryFilter from "../components/CategoryList";
 import EventList from "../components/EventList";
 
@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [events, setEvents] = useState([]);
+  const [joinedEvents, setJoinedEvents] = useState([]);
 
   async function loadCategories() {
     const data = await getCategories();
@@ -21,10 +22,30 @@ export default function Dashboard() {
     setEvents(data);
   }
 
+  async function loadJoinedEvents() {
+    const data = await getJoinedEvents(token);
+    setJoinedEvents(data);
+  }
+
   useEffect(() => {
     loadCategories();
     loadEvents();
-  }, []);
+    
+    if (token) {
+      loadJoinedEvents();
+    }
+    
+  }, [token]);
+
+  async function handleJoin(eventId) {
+    try {
+      await joinEvent(eventId, token);
+      await loadJoinedEvents();
+      alert("Joined event!");
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   let filteredEvents;
 
@@ -54,13 +75,17 @@ export default function Dashboard() {
       <h1>Hi, {user?.first_name}</h1>
       <p>Welcome back</p>
       <div>
+        <section>
+          <h2>My Joined Events</h2>
+          <EventList events={joinedEvents} />
+        </section>
         <CategoryFilter
           categories={categories}
           selectedCategoryId={selectedCategoryId}
           onSelectCategory={setSelectedCategoryId}
         />
         <Link to="/events/new">Create Event</Link>
-        <EventList events={filteredEvents} />
+        <EventList events={filteredEvents} onJoin={handleJoin} />
       </div>
     </>
   );
