@@ -1,7 +1,10 @@
 import express from "express";
+import bcrypt from "bcrypt";
 import {
   createUser,
   getUserByUsernameAndPassword,
+  getUserWithPasswordById,
+  updateUserPassword,
 } from "../db/queries/users.js";
 import requireBody from "../middleware/requireBody.js";
 import requireUser from "../middleware/requireUser.js";
@@ -18,6 +21,12 @@ router.post(
 router.post("/login", requireBody(["username", "password"]), login);
 router.get("/me", requireUser, me);
 router.get("/me/joined-events", requireUser, joinedEvents);
+router.put(
+  "/me/password",
+  requireUser,
+  requireBody(["currentPassword", "newPassword"]),
+  changePassword,
+);
 
 function toPublicUser(user) {
   return {
@@ -77,11 +86,36 @@ function me(req, res) {
 }
 
 async function joinedEvents(req, res, next) {
-  try{
+  try {
     const events = await getJoinedEvents(req.user.id);
     res.status(200).json(events);
   } catch (error) {
     next(error);
+  }
+}
+
+async function changePassword(req, res, next) {
+  try{
+    const { currentPassword, newPassword } = req.body;
+
+    const user = await getUserWithPasswordById(req.user.id);
+
+    const isValidPassword = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
+
+    if (!isValidPassword) {
+      return res.status(401).json({ error: "Current password is incorrect."});
+    }
+    const updatedUser = await updateUserPassword(req.user.id, newPassword);
+
+    res.status(200).json({
+      message: "Password updated successfully.",
+      user: updatedUser,
+    });
+  } catch (err) {
+    next(err);
   }
 }
 
