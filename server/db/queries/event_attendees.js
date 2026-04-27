@@ -37,3 +37,18 @@ export async function leaveJoinedEvent(userId, eventId){
     } = await db.query(SQL, [userId, eventId]);
     return leftEvent;
 }
+
+export async function getAttendeesByEventId(eventId) {
+    const SQL = `
+    SELECT users.id, users.first_name, users.last_name, users.username
+    FROM event_attendees
+    JOIN users ON users.id = event_attendees.user_id
+    WHERE event_attendees.event_id = $1
+    ORDER BY users.first_name
+    `;
+
+    const {
+        rows: attendees
+    } = await db.query(SQL, [eventId]);
+    return attendees;
+}

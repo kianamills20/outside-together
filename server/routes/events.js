@@ -10,7 +10,11 @@ import {
   adminDeleteEvent,
   updateEvent,
 } from "../db/queries/events.js";
-import { joinEvent, leaveJoinedEvent } from "../db/queries/event_attendees.js";
+import {
+  getAttendeesByEventId,
+  joinEvent,
+  leaveJoinedEvent,
+} from "../db/queries/event_attendees.js";
 
 const router = express.Router();
 
@@ -18,6 +22,25 @@ router.get("/", async (req, res, next) => {
   try {
     const events = await getEvents();
     res.send(events);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:id/attendees", async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    if (isNaN(eventId)) {
+      return res.status(400).send("Event id must be a number");
+    }
+    const event = await getEventById(eventId);
+
+    if (!event) {
+      return res.status(404).send("Event not found.");
+    }
+    const attendees = await getAttendeesByEventId(eventId);
+    res.send(attendees);
   } catch (err) {
     next(err);
   }
