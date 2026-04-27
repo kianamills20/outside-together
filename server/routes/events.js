@@ -2,7 +2,7 @@ import express from "express";
 import requireUser from "../middleware/requireUser.js";
 import requireBody from "../middleware/requireBody.js";
 import { getEvents, getEventById, createEvent } from "../db/queries/events.js";
-
+import { joinEvent } from "../db/queries/event_attendees.js";
 
 const router = express.Router();
 
@@ -69,5 +69,19 @@ router.post(
     }
   },
 );
+
+router.post("/:id/join", requireUser, async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    if (isNaN(eventId)) {
+      return res.status(400).send("Event id must be a number.");
+    }
+    const joinedEvent = await joinEvent(req.user.id, eventId);
+    res.status(201).send(joinedEvent);
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;
