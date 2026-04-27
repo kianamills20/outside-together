@@ -64,7 +64,7 @@ export async function joinEvent(eventId, token) {
   return result;
 }
 
-export async function getEventAttendees(eventId){
+export async function getEventAttendees(eventId) {
   const response = await fetch(`${API_BASE}/api/events/${eventId}/attendees`);
   const result = await response.json();
 
@@ -132,5 +132,23 @@ export async function deleteEvent(eventId, token) {
   if (!response.ok) {
     throw Error(result.error || "Could not delete event");
   }
+  return result;
+}
+
+export async function changePassword(passwordData, token) {
+  const response = await fetch(`${API_BASE}/api/users/me/password`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(passwordData),
+  });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.error || "Could not update password.");
+  }
+
   return result;
 }
