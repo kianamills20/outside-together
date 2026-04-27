@@ -14,6 +14,14 @@ export async function createEvent(title, description, creator_id, category_id, l
     return event;
 }
 
-export async function getEvent(){
-    
+export async function getEvents(){
+    const SQL = `
+    SELECT *
+    FROM events
+    ORDER BY event_date ASC
+    `;
+    const {
+        rows: events 
+    } = await db.query(SQL);
+    return events;
 }

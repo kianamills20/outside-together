@@ -40,7 +40,6 @@ async function seed() {
     {
       title: "Sunrise Hike at Red Rocks",
       description: "Beginner-friendly morning hike with scenic views.",
-      creator_id: 1,
       category_id: 1,
       location: "Red Rocks Park",
       image_url:
@@ -50,7 +49,6 @@ async function seed() {
     {
       title: "Wash Park Pickup Volleyball",
       description: "Open sand volleyball games for all skill levels.",
-      creator_id: 1,
       category_id: 8,
       location: "Washington Park",
       image_url:
@@ -60,7 +58,6 @@ async function seed() {
     {
       title: "Sloan's Lake Group Run",
       description: "3-mile social run around the lake.",
-      creator_id: 1,
       category_id: 2,
       location: "Sloan's Lake",
       image_url:
@@ -70,7 +67,6 @@ async function seed() {
     {
       title: "Beginner Pickleball Night",
       description: "Fun beginner matches and meet new people.",
-      creator_id: 1,
       category_id: 5,
       location: "Central Park Courts",
       image_url:
@@ -80,7 +76,6 @@ async function seed() {
     {
       title: "City Park Tennis Rally",
       description: "Casual doubles and singles rotation.",
-      creator_id: 1,
       category_id: 6,
       location: "City Park",
       image_url:
@@ -90,7 +85,6 @@ async function seed() {
     {
       title: "Weekend Camping Meetup",
       description: "Group camping trip and campfire social.",
-      creator_id: 1,
       category_id: 7,
       location: "Golden Gate Canyon",
       image_url:
@@ -100,7 +94,6 @@ async function seed() {
     {
       title: "Cherry Creek Paddleboarding",
       description: "Relaxed paddleboarding session on the water.",
-      creator_id: 1,
       category_id: 3,
       location: "Cherry Creek Reservoir",
       image_url:
@@ -110,7 +103,6 @@ async function seed() {
     {
       title: "Sunday Soccer Scrimmage",
       description: "Friendly co-ed soccer game.",
-      creator_id: 1,
       category_id: 4,
       location: "Ruby Hill Park",
       image_url:
@@ -120,7 +112,6 @@ async function seed() {
     {
       title: "Longboard Cruise Downtown",
       description: "Easy city cruise for riders of all levels.",
-      creator_id: 1,
       category_id: 10,
       location: "RiNo District",
       image_url:
@@ -130,7 +121,6 @@ async function seed() {
     {
       title: "Neighborhood Dog Walk",
       description: "Bring your dog and meet other locals.",
-      creator_id: 1,
       category_id: 11,
       location: "Cheesman Park",
       image_url:
