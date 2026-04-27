@@ -1,7 +1,14 @@
 import express from "express";
 import requireUser from "../middleware/requireUser.js";
 import requireBody from "../middleware/requireBody.js";
-import { getEvents, getEventById, createEvent } from "../db/queries/events.js";
+import requireAdmin from "../middleware/requireAdmin.js";
+import {
+  getEvents,
+  getEventById,
+  createEvent,
+  deleteEvent,
+  adminDeleteEvent,
+} from "../db/queries/events.js";
 import { joinEvent, leaveJoinedEvent } from "../db/queries/event_attendees.js";
 
 const router = express.Router();
@@ -99,5 +106,46 @@ router.delete("/:id/leave", requireUser, async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete("/admin/:id", requireUser, requireAdmin, async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    if (isNaN(eventId)) {
+      return res.status(400).send("Event id must be a number.");
+    }
+    const deletedEvent = await adminDeleteEvent(eventId);
+
+    if (!deletedEvent) {
+      return res
+        .status(404)
+        .send("Event not found.");
+    }
+    res.send(deletedEvent);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:id", requireUser, async (req, res, next) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    if (isNaN(eventId)) {
+      return res.status(400).send("Event id must be a number.");
+    }
+    const deletedEvent = await deleteEvent(eventId, req.user.id);
+
+    if (!deletedEvent) {
+      return res
+        .status(404)
+        .send("Event not found or you are not allowed to delete it.");
+    }
+    res.send(deletedEvent);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 export default router;
