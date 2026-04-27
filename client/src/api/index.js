@@ -92,3 +92,19 @@ export async function leaveJoinedEvent(eventId, token) {
   }
   return result;
 }
+
+export async function deleteEvent(eventId, token) {
+  const response = await fetch(`${API_BASE}/api/events/${eventId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw Error(result.error || "Could not delete event");
+  }
+  return result;
+}

@@ -1,7 +1,7 @@
 import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCategories, getEvents, getJoinedEvents, joinEvent, leaveJoinedEvent } from "../api";
+import { deleteEvent, getCategories, getEvents, getJoinedEvents, joinEvent, leaveJoinedEvent } from "../api";
 import CategoryFilter from "../components/CategoryList";
 import EventList from "../components/EventList";
 
@@ -56,6 +56,15 @@ export default function Dashboard() {
     }
   }
 
+  async function handleDelete(eventId) {
+    try{
+      await deleteEvent(eventId, token);
+      await loadEvents();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   let filteredEvents;
 
   if (selectedCategoryId === null) {
@@ -65,6 +74,10 @@ export default function Dashboard() {
       return event.category_id === selectedCategoryId;
     });
   }
+
+  const createdEvents = events.filter((event) => {
+    return event.creator_id === user.id;
+  });
 
   if (!token) {
     return (
@@ -84,6 +97,10 @@ export default function Dashboard() {
       <h1>Hi, {user?.first_name}</h1>
       <p>Welcome back</p>
       <div>
+        <section>
+          <h2>My Created Events</h2>
+          <EventList events={createdEvents} onDelete={handleDelete} />
+        </section>
         <section>
           <h2>My Joined Events</h2>
           <EventList events={joinedEvents} onLeave={handleLeave} />

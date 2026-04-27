@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ event, onJoin, onLeave }) {
+export default function EventCard({ event, onJoin, onLeave, onDelete }) {
   return (
     <>
       <Link to={"/events/" + event.id}>
@@ -19,6 +19,9 @@ export default function EventCard({ event, onJoin, onLeave }) {
       )}
       {typeof onLeave === "function" && (
         <button onClick={() => onLeave(event.id)}>Leave Event</button>
+      )}
+      {typeof onDelete === "function" && (
+        <button onClick={() => onDelete(event.id)}>Delete Event</button>
       )}
     </>
   );

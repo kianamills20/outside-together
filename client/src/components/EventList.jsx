@@ -1,6 +1,6 @@
 import EventCard from "./EventCard";
 
-export default function EventList({ events, onJoin, onLeave }) {
+export default function EventList({ events, onJoin, onLeave, onDelete }) {
   return (
     <div>
       {events.map((event) => {
@@ -10,6 +10,7 @@ export default function EventList({ events, onJoin, onLeave }) {
             event={event}
             onJoin={onJoin}
             onLeave={onLeave}
+            onDelete={onDelete}
           />
         );
       })}
