@@ -43,3 +43,31 @@ export async function getUserById(id) {
   } = await db.query(SQL, [id]);
   return user ?? null;
 }
+
+export async function getUserWithPasswordById(id) {
+  const SQL = `
+  SELECT *
+  FROM users
+  WHERE id = $1
+  `;
+
+  const {
+    rows: [user],
+  } = await db.query(SQL, [id]);
+  return user ?? null;
+}
+
+export async function updateUserPassword(userId, newPassword) {
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+  const SQL = `
+  UPDATE users
+  SET password = $1
+  WHERE id = $2
+  RETURNING id, first_name, last_name, username, role, created_at
+  `;
+  const {
+    rows: [user],
+  } = await db.query(SQL, [hashedPassword, userId]);
+  return user ?? null;
+}
