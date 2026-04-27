@@ -75,3 +75,39 @@ export async function adminDeleteEvent(eventId) {
   } = await db.query(SQL, [eventId]);
   return deleteEvent;
 }
+
+export async function updateEvent(
+  title,
+  description,
+  category_id,
+  location,
+  image_url,
+  event_date,
+  eventId,
+  userId,
+) {
+  const SQL = `
+    UPDATE events
+    SET title = $1, 
+    description = $2,
+    category_id = $3,
+    location = $4,
+    image_url = $5,
+    event_date = $6
+    WHERE id = $7 and creator_id = $8
+    RETURNING *
+    `;
+  const {
+    rows: [event],
+  } = await db.query(SQL, [
+    title,
+    description,
+    category_id,
+    location,
+    image_url,
+    event_date,
+    eventId,
+    userId,
+  ]);
+  return event;
+}

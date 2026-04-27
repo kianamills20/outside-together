@@ -8,6 +8,7 @@ import {
   createEvent,
   deleteEvent,
   adminDeleteEvent,
+  updateEvent,
 } from "../db/queries/events.js";
 import { joinEvent, leaveJoinedEvent } from "../db/queries/event_attendees.js";
 
@@ -93,6 +94,55 @@ router.post("/:id/join", requireUser, async (req, res, next) => {
   }
 });
 
+router.put(
+  "/:id",
+  requireUser,
+  requireBody([
+    "title",
+    "description",
+    "category_id",
+    "location",
+    "image_url",
+    "event_date",
+  ]),
+  async (req, res, next) => {
+    try {
+      const eventId = Number(req.params.id);
+      if (isNaN(eventId)) {
+        return res.status(400).send("Event id must be a number.");
+      }
+      const {
+        title,
+        description,
+        category_id,
+        location,
+        image_url,
+        event_date,
+      } = req.body;
+
+      const updated = await updateEvent(
+        eventId,
+        req.user.id,
+        title,
+        description,
+        category_id,
+        location,
+        image_url,
+        event_date,
+      );
+
+      if (!updated) {
+        return res
+          .status(404)
+          .send("Event not found or you are not allowed to update it.");
+      }
+      res.send(updated);
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
 router.delete("/:id/leave", requireUser, async (req, res, next) => {
   try {
     const eventId = Number(req.params.id);
@@ -107,25 +157,28 @@ router.delete("/:id/leave", requireUser, async (req, res, next) => {
   }
 });
 
-router.delete("/admin/:id", requireUser, requireAdmin, async (req, res, next) => {
-  try {
-    const eventId = Number(req.params.id);
+router.delete(
+  "/admin/:id",
+  requireUser,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const eventId = Number(req.params.id);
 
-    if (isNaN(eventId)) {
-      return res.status(400).send("Event id must be a number.");
-    }
-    const deletedEvent = await adminDeleteEvent(eventId);
+      if (isNaN(eventId)) {
+        return res.status(400).send("Event id must be a number.");
+      }
+      const deletedEvent = await adminDeleteEvent(eventId);
 
-    if (!deletedEvent) {
-      return res
-        .status(404)
-        .send("Event not found.");
+      if (!deletedEvent) {
+        return res.status(404).send("Event not found.");
+      }
+      res.send(deletedEvent);
+    } catch (err) {
+      next(err);
     }
-    res.send(deletedEvent);
-  } catch (err) {
-    next(err);
-  }
-});
+  },
+);
 
 router.delete("/:id", requireUser, async (req, res, next) => {
   try {
@@ -146,6 +199,5 @@ router.delete("/:id", requireUser, async (req, res, next) => {
     next(err);
   }
 });
-
 
 export default router;
