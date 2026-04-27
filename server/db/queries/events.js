@@ -37,3 +37,27 @@ export async function getEventById(id){
     } = await db.query(SQL, [id]);
     return event;
 }
+
+export async function deleteEvent(eventId, userId) {
+    const SQL = `
+    DELETE FROM events
+    WHERE id = $1 AND creator_id = $2
+    RETURNING *
+    `;
+    const {
+        rows: [deleteEvent],
+    } = await db.query(SQL, [eventId, userId]);
+    return deleteEvent;
+}
+
+export async function adminDeleteEvent(eventId) {
+     const SQL = `
+    DELETE FROM events
+    WHERE id = $1
+    RETURNING *
+    `;
+    const {
+        rows: [deleteEvent],
+    } = await db.query(SQL, [eventId]);
+    return deleteEvent;
+}
