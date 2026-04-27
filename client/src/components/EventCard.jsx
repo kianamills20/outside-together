@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function EventCard({ event, onJoin, onLeave, onDelete }) {
+export default function EventCard({
+  event,
+  onJoin,
+  onLeave,
+  onDelete,
+  showEdit,
+}) {
   const fallbackImage = "/default-event.svg";
   const [imageSrc, setImageSrc] = useState(event.image_url || fallbackImage);
   const formattedDate = new Date(event.event_date).toLocaleString([], {
@@ -31,10 +37,22 @@ export default function EventCard({ event, onJoin, onLeave, onDelete }) {
           <button onClick={() => onJoin(event.id)}>Join Event</button>
         )}
         {typeof onLeave === "function" && (
-          <button className="btn-secondary" onClick={() => onLeave(event.id)}>Leave Event</button>
+          <button className="btn-secondary" onClick={() => onLeave(event.id)}>
+            Leave Event
+          </button>
+        )}
+        {showEdit && (
+          <Link
+            className="btn btn-secondary"
+            to={"/events/" + event.id + "/edit"}
+          >
+            Edit Event
+          </Link>
         )}
         {typeof onDelete === "function" && (
-          <button className="delete-btn" onClick={() => onDelete(event.id)}>Delete Event</button>
+          <button className="delete-btn" onClick={() => onDelete(event.id)}>
+            Delete Event
+          </button>
         )}
       </div>
     </div>

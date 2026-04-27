@@ -81,9 +81,13 @@ export default function Dashboard() {
     });
   }
 
-  const createdEvents = events.filter((event) => {
-    return event.creator_id === user.id;
-  });
+  let createdEvents = [];
+
+  if (user) {
+    createdEvents = events.filter((event) => {
+      return event.creator_id === user.id;
+    });
+  }
 
   if (!token) {
     return (
@@ -108,7 +112,7 @@ export default function Dashboard() {
         <div>
           <section className="section">
             <h2 className="section-title">My Created Events</h2>
-            <EventList events={createdEvents} onDelete={handleDelete} />
+            <EventList events={createdEvents} onDelete={handleDelete} showEdit={true} />
             <Link
               className="btn-secondary"
               to={"/events/" + event.id + "/edit"}
